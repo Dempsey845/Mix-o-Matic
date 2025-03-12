@@ -9,18 +9,34 @@
   <body>
     <div class="container">
       <h1>Mix-o-Matic!</h1>
+      <div class="main-details">
+        <h2><%= locals.drinkName %></h2>
+        <h2><%= locals.category %></h3>
+      </div>
       <div class="cocktail-img">
         <img
-          src="https://images.pexels.com/photos/338713/pexels-photo-338713.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          src=<%= locals.imageURL %>
         />
       </div>
-      <div class="ingredients">
-        <h2 style="margin-bottom: 0px">Ingredients</h2>
-        <ul>
-          <li>Alchohol</li>
-          <li>2 x Oranges</li>
-        </ul>
-      </div>
+        <div class="information">
+            <h2>Information</h2>
+            <ul>
+                <li><%= locals.isAlcoholic %></li>
+                <li><%= locals.glass %></li>
+            </ul>
+        </div>
+        <div class="instructions">
+          <h2 style="margin-bottom: 0px">Instructions</h2>
+          <p><%= locals.instructions.slice(0, 100) %></p>
+        </div>
+        <div class="ingredients">
+          <h2 style="margin-bottom: 0px">Ingredients</h2>
+          <ul>
+            <% locals.ingredients.forEach(element => { %>
+                <li><%= element %></li>
+            <% }) %>
+          </ul>
+        </div>
     </div>
   </body>
 </html>
