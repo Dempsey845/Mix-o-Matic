@@ -4,39 +4,58 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
     <title>Mix-o-Matic</title>
   </head>
   <body>
+    <div class="header">
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+      >
+        <span class="fs-4">Mix-o-Matic</span>
+      </header>
+    </div>
     <div class="container">
-      <h1>Mix-o-Matic!</h1>
-      <div class="main-details">
-        <h2><%= locals.drinkName %></h2>
-        <h2><%= locals.category %></h3>
-      </div>
-      <div class="cocktail-img">
-        <img
-          src=<%= locals.imageURL %>
-        />
-      </div>
-        <div class="information">
-            <h2>Information</h2>
-            <ul>
-                <li><%= locals.isAlcoholic %></li>
-                <li><%= locals.glass %></li>
-            </ul>
+      <div class="section1">
+        <div class="card" style="width: 18rem">
+          <img
+            class="card-img-top"
+            src="<%= locals.imageURL%>"
+            alt="Card
+          image cap"
+          />
+          <div class="card-body">
+            <h5 class="card-title">
+              <%= locals.drinkName %> / <%= locals.category %>
+            </h5>
+            <% if (locals.instructions.length > 100) { %>
+                <p class="card-text"></p><%=locals.instructions.slice(0, 100) + "..."%></p>
+                <a href="/drink/<%=locals.drinkID%>" class="btn btn-dark">Read More...</a>
+            <% } else { %>
+                <p class="card-text"><%= locals.instructions %></p>
+            <% } %>
+            </div>
         </div>
-        <div class="instructions">
-          <h2 style="margin-bottom: 0px">Instructions</h2>
-          <p><%= locals.instructions.slice(0, 100) %></p>
+      </div>
+
+      <div class="section2">
+        <div class="information">
+          <h2>Information</h2>
+          <ul class="list-group">
+            <li class="list-group-item"><%= locals.isAlcoholic %></li>
+            <li class="list-group-item"><%= locals.glass %></li>
+          </ul>
         </div>
         <div class="ingredients">
           <h2 style="margin-bottom: 0px">Ingredients</h2>
-          <ul>
+          <ul class="list-group">
             <% locals.ingredients.forEach(element => { %>
-                <li><%= element %></li>
+            <li class="list-group-item"><%= element %></li>
             <% }) %>
           </ul>
         </div>
+      </div>
     </div>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

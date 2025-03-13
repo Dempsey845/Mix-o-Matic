@@ -1,10 +1,19 @@
 import express from "express";
 import axios from "axios";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const port = 3000;
 
 app.use(express.static("public"));
+app.use(
+  "/bootstrap",
+  express.static(path.join(__dirname, "node_modules/bootstrap/dist"))
+);
 
 async function formatCocktailDrink(drink) {
   const n = drink.strDrink;
@@ -13,6 +22,9 @@ async function formatCocktailDrink(drink) {
   const g = drink.strGlass;
   const i = drink.strInstructions;
   const iURL = drink.strDrinkThumb + "/small";
+  const id = drink.idDrink;
+
+  console.log(id);
 
   var ingr = [];
   Object.entries(drink).forEach(([key, value]) => {
@@ -39,6 +51,7 @@ async function formatCocktailDrink(drink) {
     imageURL: iURL,
     ingredients: ingr,
     measures: meas,
+    drinkID: id,
   };
 }
 
@@ -52,6 +65,11 @@ app.get("/", async (req, res) => {
   } catch (error) {
     console.log("Failed to make request: ", error.message);
   }
+});
+
+app.get("/drink/:id", (req, res) => {
+  const drinkID = req.params.id;
+  res.send(`Drink details for ID: ${drinkID}`);
 });
 
 app.listen(port, () => {
