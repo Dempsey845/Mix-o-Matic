@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="/default.css" />
+    <link rel="stylesheet" href="/main.css" />
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
     <title>Mix-o-Matic</title>
   </head>
@@ -12,7 +13,7 @@
       <header
         class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
       >
-        <span class="fs-4">Mix-o-Matic</span>
+        <a href="/" class="brand-link"><span class="fs-4">Mix-o-Matic</span></a>
       </header>
     </div>
     <div class="container">
@@ -20,7 +21,7 @@
         <div class="card" style="width: 18rem">
           <img
             class="card-img-top"
-            src="<%= locals.imageURL%>"
+            src="<%= locals.imageURL + "/small"%>"
             alt="Card
           image cap"
           />

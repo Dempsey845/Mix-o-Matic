@@ -1,0 +1,7 @@
+.brand-link {
+  text-decoration: none;
+  color: black;
+}
+.brand-link:hover {
+  color: darkgray;
+}

@@ -1,6 +1,6 @@
 import express from "express";
 import axios from "axios";
-import path from "path";
+import path, { format } from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -21,10 +21,8 @@ async function formatCocktailDrink(drink) {
   const iA = drink.strAlcoholic;
   const g = drink.strGlass;
   const i = drink.strInstructions;
-  const iURL = drink.strDrinkThumb + "/small";
+  const iURL = drink.strDrinkThumb;
   const id = drink.idDrink;
-
-  console.log(id);
 
   var ingr = [];
   Object.entries(drink).forEach(([key, value]) => {
@@ -55,6 +53,19 @@ async function formatCocktailDrink(drink) {
   };
 }
 
+async function getDrinkHeadersFromID(drinkID) {
+  try {
+    const response = await axios.get(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkID}`
+    );
+    const headers = await formatCocktailDrink(response.data.drinks[0]);
+    return headers;
+  } catch (error) {
+    console.log(error);
+    return undefined;
+  }
+}
+
 app.get("/", async (req, res) => {
   try {
     const response = await axios.get(
@@ -67,9 +78,15 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.get("/drink/:id", (req, res) => {
+app.get("/drink/:id", async (req, res) => {
   const drinkID = req.params.id;
-  res.send(`Drink details for ID: ${drinkID}`);
+  const headers = await getDrinkHeadersFromID(drinkID);
+  if (headers != undefined) {
+    res.render("drink.ejs", headers);
+  } else {
+    // Error fetching drink with ID
+    res.redirect("/");
+  }
 });
 
 app.listen(port, () => {

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/default.css" />
+    <link rel="stylesheet" href="/drink.css" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" />
+    <title>Mix-o-Matic</title>
+  </head>
+  <header
+    class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+  >
+    <a href="/" class="brand-link"><span class="fs-4">Mix-o-Matic</span></a>
+  </header>
+  <body>
+    <div class="container">
+      <div class="card" style="width: 35rem">
+        <img class="card-img-top" src="<%= locals.imageURL + "/large" %>"
+        alt="Card image cap" />
+        <div class="card-body">
+          <h3><%=locals.drinkName%> | <%=locals.category%></h3>
+          <h4>Instructions</h4>
+          <p class="card-text"><%=locals.instructions%></p>
+          <ul class="list-group">
+            <li class="list-group-item"><%= locals.isAlcoholic %></li>
+            <li class="list-group-item"><%= locals.glass %></li>
+          </ul>
+          <h4>Ingredients</h4>
+          <ul class="list-group">
+            <% locals.ingredients.forEach(element => { %>
+            <li class="list-group-item"><%= element %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
