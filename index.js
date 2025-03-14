@@ -24,6 +24,8 @@ async function formatCocktailDrink(drink) {
   const iURL = drink.strDrinkThumb;
   const id = drink.idDrink;
 
+  console.log(drink);
+
   var ingr = [];
   Object.entries(drink).forEach(([key, value]) => {
     const slicedKey = key.slice(0, 6); // "strIng"
@@ -40,6 +42,11 @@ async function formatCocktailDrink(drink) {
     }
   });
 
+  var ingrMeas = [];
+  for (let i = 0; i < ingr.length; i++) {
+    ingrMeas.push(`${meas[i]} of ${ingr[i]}`);
+  }
+
   return {
     drinkName: n,
     category: c,
@@ -49,6 +56,7 @@ async function formatCocktailDrink(drink) {
     imageURL: iURL,
     ingredients: ingr,
     measures: meas,
+    ingredientsAndMeasures: ingrMeas,
     drinkID: id,
   };
 }
